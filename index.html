@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Untitled</title>
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+
+    <!-- The contents here are injected dynamically by GWT... so the script below attempts to replace these contents -->
+    <div class="top-bar"></div>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.js"></script>
+
+<!-- Visual Website Optimizer script -->
+<script>
+
+// The following API function is called just before a variation is inserted. The variation is passed to the function as a (wrapped up) DOM element. Control is a DOM element on the page which will be replaced by the variation. Remove all comments here for faster loading tests.
+// _vwo_api_section_callback[VWO_SECTION_ID] = function(variation, control) {
+    // jQuery is available as shorthand vwo_$. Example: vwo_$(variation).css('font-size', 'larger');
+
+    // INSERT YOUR CODE HERE
+
+    var addTheText = function() {
+
+        // // Replace top bar child's contents with new contents
+        // vwo_$(variation).find('.top-bar').children().html('<p>Upgrade to a paid plan in <span id="countDown"></span> and get <strong>50% off</strong> your first month! <a href="/account/accountUpgrade">Upgrade Now</a></p>');
+
+        // Replace top bar child's contents with new contents
+        $('.top-bar').html('<p>Upgrade to a paid plan in <span id="countDown"></span> and get <strong>50% off</strong> your first month! <a href="/account/accountUpgrade">Upgrade Now</a></p>');
+
+        updateTheCountdown(60, 00);
+    }
+
+    var updateTheCountdown = function(minutes, seconds) {
+      console.log('updateTheCountdown kicked off');
+        var element, endTime, hours, mins, msLeft, time;
+
+        function twoDigits(n) {
+            return (n <= 9 ? "0" + n : n);
+        }
+
+        function updateTimer() {
+            console.log('updateTimer');
+            // Minutes left = endTime - current time
+            msLeft = endTime - (+new Date);
+            // if 1 second left, replace HTML with 'countdown is over'
+            if (msLeft < 1000) {
+                $('#countDown').html('00:00:00');
+            } else {
+                // set the time
+                time = new Date(msLeft);
+                hours = time.getUTCHours();
+                mins = time.getUTCMinutes();
+                $('#countDown').html('<span>' + (twoDigits(hours) ? hours + ':' + twoDigits(mins) : mins) + ':' + twoDigits(time.getUTCSeconds() + '</span>'));
+                setTimeout(updateTimer, time.getUTCMilliseconds() + 500);
+            }
+        }
+
+        // element = #countDown span
+        element = $('#countDown');
+        console.log(element);
+        // Set endTime to be minutes/seconds in the future
+        endTime = (+new Date) + 1000 * (60 * minutes + seconds) + 500;
+        updateTimer();
+    }
+
+  addTheText(updateTheCountdown);
+
+// }
+</script>
+
+
+  </body>
+</html>
